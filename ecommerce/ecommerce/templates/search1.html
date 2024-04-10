@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+ look what we have here
+{% endblock %}
+
+{% block title %}
+    search
+{% endblock %}
+
+{% block content %}
+
+        <div class="container">
+       <div class="row text-center text-center justify-content-center align-items-center">
+            <div>
+                <h1 style="font-size:25px" class="text-muted">You've searched for <b>'{{ query }}'</b></h1>
+            </div>
+        </div>
+
+        <hr>
+    <h1 class="text-center my_title">Products</h1>
+    <div class="card-container">
+        <div class="row mx_auto">
+            {% for product in products %}
+             <div class="my_bottom_margin col-9 col-sm-12 col-lg-4">
+            <div class="card-body">
+                <a href="{{ product.get_url }}"><img class="card-image-top myimage" src="{{ product.img.url }}" alt="{{ product.name }}" style="width: 200px; height: 200px;"></a>
+                <div class="card-body">
+                    <h4 class="card-title">{{ product.name }}</h4>
+                    <p class="card-text">{{ product.price }}</p>
+
+                </div>
+              </div>
+            </div>
+            {% empty %}
+                <div class="mx_auto col-sm-12 col-md-12 col-lg-12 mb-2 ml-2 text-center">
+                    <div class="align-items-center">
+                        <h1 style="font-size:25px;text center" class=""> no Results Found</h1>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+        </div>
+{% endblock %}

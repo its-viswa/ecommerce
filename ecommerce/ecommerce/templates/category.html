@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {% if category %}
+        {{ category.description|truncatewords:155 }}
+    {% else %}
+        Welcome to Raw factory
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+        {{ category.name }} -- Raw factory
+    {% else %}
+        See Our New Collections -- Raw factory
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if category %}
+    <div>
+        <div class="row my_row-class">
+            <div class="mx-auto">
+                <a class="text-decoration-none" href="{% url 'shop:allprod' %}">See all Products</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="mx-auto">
+        <img src="{{ category.img.url }}" alt="category picture">
+    </div>
+    <div>
+        <h1 class="my_title1">{{ category.name }}</h1><br>
+        <p class="text-muted">{{ category.description }}</p>
+    </div>
+    {% else %}
+    <div class="container">
+        <div class="row">
+            <img src="{% static 'images/rawfactory.png' %}" alt="our products" width="100%" height="500px">
+        </div>
+        <div>
+            <h1>Our product collection</h1>
+            <div>
+            <p1>Welcome to our Clothing Store!</p1><br>
+
+                <p4 class="font-family: 'Lucida Console', 'Courier New', monospace">At our store, we offer a wide range of clothing options for men, women, and kids, designed to cater to every style and occasion. Whether you're looking for trendy outfits, casual wear, or formal attire, we have something for everyone.
+
+                    Men's Collection: Our men's collection features a variety of stylish and comfortable clothing options. From classic shirts and trousers to trendy jackets and jeans, our collection is designed to help you look your best, no matter the occasion.
+
+                    Women's Collection: Explore our women's collection and discover a range of chic and fashionable clothing options. Whether you're looking for elegant dresses, casual tops, or stylish bottoms, our collection has you covered.
+
+                    Kids' Collection: Our kids' collection is designed with comfort and style in mind. From adorable outfits for toddlers to trendy clothes for teens, our collection offers a variety of options to suit every child's style and personality.
+                </p4>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+<div class="container">
+    <div class="row mx-auto">
+        {% for product in products %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-lg-4">
+            <div class="card-body">
+                <a href="{{ product.get_url }}"><img class="card-image-top myimage" src="{{ product.img.url }}" alt="{{ product.name }}" style="width: 200px; height: 200px;"></a>
+                <div class="card-body">
+                    <h4 class="card-title">{{ product.name }}</h4>
+                    <p class="card-text">{{ product.price }}</p>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
